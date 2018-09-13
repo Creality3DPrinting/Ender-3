@@ -1,0 +1,19 @@
+shader "top_name"  "top_mtl"  
+(
+	 "num_cols"  1 ,
+	 "illum"  "model_3.p2a" 
+)
+
+material "iii"  "swt_main_phen"  
+(
+	 "col1"  1 1 1 ,
+	 "ambient_factor"  0.5 ,
+	 "diffuse_factor"  0.8 ,
+	 "specular_factor"  0.8 ,
+	 "specular_color"  1 1 1 ,
+	 "exponent"  75 ,
+	 "reflectivity"  0.2 ,
+	 "transparency"  0 ,
+	 "sw_shader"	 whitehighglossplastic
+)
+end material 

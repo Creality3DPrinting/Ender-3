@@ -1,0 +1,13 @@
+shader "top_name"  "top_mtl"  
+(
+ 	 "num_cols"  1 ,
+	 "illum" "model_16.p2a"
+)
+ 
+material "iii"  "swt_main_phen"  
+(
+	 "reflectivity"  0 ,
+	 "sw_shader" TransparentFloor
+)
+ 
+end material 

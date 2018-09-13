@@ -1,0 +1,33 @@
+shadow 
+transparent 0 0 
+environment 
+showroom 
+north nonvisible nonreflective "Materials\plastic\high gloss\default plastic.p2m"
+without_mapping
+south nonvisible nonreflective "Materials\plastic\high gloss\default plastic.p2m"
+without_mapping
+east nonvisible nonreflective "Materials\plastic\high gloss\default plastic.p2m"
+without_mapping
+west nonvisible nonreflective "Materials\plastic\high gloss\default plastic.p2m"
+without_mapping
+ceiling nonvisible nonreflective "Materials\plastic\high gloss\default plastic.p2m"
+without_mapping
+floor visible reflective "Materials\miscellaneous\studio materials\reflective shadow floor.p2m"
+without_mapping
+end_textures
+offset 0.0
+end_positions
+model xz_plane
+background 
+image "\images\textures\background\softbox.png"
+none 
+background_multiplier 1.000000
+background_environment 
+image "\images\textures\background\3 point beige.hdr"
+spherical_env 
+environment_multipliers 0.2 0.2
+sw_scene_rotating_envmap 1
+pv_background_image_brightness 0.9 
+pv_rendering_brightness 0.800000 
+pv_scene_reflectivity 1.000000 
+end 

@@ -1,0 +1,35 @@
+lighting custom
+"ambient overhead.p2l"
+shadow 
+transparent 0 0 
+environment 
+showroom 
+north nonvisible nonreflective "Materials\plastic\high gloss\default plastic.p2m"
+without_mapping
+south nonvisible nonreflective "Materials\plastic\high gloss\default plastic.p2m"
+without_mapping
+east nonvisible nonreflective "Materials\plastic\high gloss\default plastic.p2m"
+without_mapping
+west nonvisible nonreflective "Materials\plastic\high gloss\default plastic.p2m"
+without_mapping
+ceiling nonvisible nonreflective "Materials\plastic\high gloss\default plastic.p2m"
+without_mapping
+floor visible nonreflective "Materials\miscellaneous\studio materials\shadow floor.p2m"
+without_mapping
+end_textures
+offset 0.0
+end_positions
+model xz_plane
+background 
+image "\images\textures\background\soft tent_cubemap.dds" 
+cubical_env_6 
+background_multiplier 1.000000
+background_environment 
+image "\images\textures\background\soft tent.hdr"
+spherical_env 
+environment_multipliers 0.2 0.2
+sw_scene_rotating_envmap 1
+pv_background_image_brightness 1.5 
+pv_rendering_brightness 1.5 
+pv_scene_reflectivity 1.5 
+end 
