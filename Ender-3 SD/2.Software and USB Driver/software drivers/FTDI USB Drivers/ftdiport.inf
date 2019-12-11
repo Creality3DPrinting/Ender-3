@@ -1,0 +1,174 @@
+; FTDIPORT.INF
+; Copyright (c) 2000-2010 FTDI Ltd.
+;
+; USB serial port driver installation file for Windows 2000, XP, Server 2003, Vista, Server 2008,
+; Windows 7 and Server 2008 R2 (x86 and x64).
+;
+; FTDI device drivers may be used only in conjunction with products based on FTDI parts.
+; The driver may be distributed in any form as long as our license information is not modified.
+; If a custom Vendor ID and/or Product ID, or description string are used, it is the responsibility of 
+; the product manufacturer to maintain any changes and subsequent WHQL re-certification as a result of
+; making these changes.
+;
+;
+
+[Version]
+Signature="$Windows NT$"
+DriverPackageType=PlugAndPlay
+DriverPackageDisplayName=%DESC%
+Class=Ports
+ClassGUID={4d36e978-e325-11ce-bfc1-08002be10318}
+Provider=%FTDI%
+CatalogFile=ftdiport.cat
+DriverVer=03/30/2010,2.06.02
+
+[SourceDisksNames]
+1=%DriversDisk%,,,
+
+[SourceDisksFiles]
+ftser2k.sys=1,i386
+ftserui2.dll=1,i386
+ftcserco.dll = 1,i386
+
+[SourceDisksFiles.amd64]
+ftser2k.sys=1,amd64
+ftserui2.dll=1,amd64
+ftcserco.dll = 1,amd64
+
+[DestinationDirs]
+FtdiPort.NT.Copy=10,system32\drivers
+FtdiPort.NT.CopyUI=10,system32
+FtdiPort2232.NT.CopyCoInst=10,system32
+
+[ControlFlags]
+ExcludeFromSelect=*
+
+[Manufacturer]
+%FTDI%=FtdiHw,NTamd64
+
+[FtdiHw]
+%VID_0403&PID_6001.DeviceDesc%=FtdiPort232.NT,FTDIBUS\COMPORT&VID_0403&PID_6001
+%VID_0403&PID_6010.DeviceDesc%=FtdiPort2232.NT,FTDIBUS\COMPORT&VID_0403&PID_6010
+%VID_0403&PID_6011.DeviceDesc%=FtdiPort2232.NT,FTDIBUS\COMPORT&VID_0403&PID_6011
+
+[FtdiHw.NTamd64]
+%VID_0403&PID_6001.DeviceDesc%=FtdiPort232.NTamd64,FTDIBUS\COMPORT&VID_0403&PID_6001
+%VID_0403&PID_6010.DeviceDesc%=FtdiPort2232.NTamd64,FTDIBUS\COMPORT&VID_0403&PID_6010
+%VID_0403&PID_6011.DeviceDesc%=FtdiPort2232.NTamd64,FTDIBUS\COMPORT&VID_0403&PID_6011
+
+[FtdiPort.NT.AddService]
+DisplayName    = %SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %10%\system32\drivers\ftser2k.sys
+LoadOrderGroup = Base
+
+; -------------- Serenum Driver install section
+[SerEnum_AddService]
+DisplayName    = %SerEnum.SvcDesc%
+ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
+StartType      = 3               ; SERVICE_DEMAND_START
+ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\serenum.sys
+LoadOrderGroup = PNP Filter
+
+[FtdiPort.NT.AddReg]
+HKR,,EnumPropPages32,,"ftserui2.dll,SerialPortPropPageProvider"
+
+[FtdiPort.NT.Copy]
+ftser2k.sys
+
+[FtdiPort.NT.CopyUI]
+ftserui2.dll
+
+[FtdiPort232.NT]
+CopyFiles=FtdiPort.NT.Copy,FtdiPort.NT.CopyUI
+AddReg=FtdiPort.NT.AddReg
+
+[FtdiPort232.NTamd64]
+CopyFiles=FtdiPort.NT.Copy,FtdiPort.NT.CopyUI
+AddReg=FtdiPort.NT.AddReg
+
+[FtdiPort232.NT.HW]
+AddReg=FtdiPort232.NT.HW.AddReg
+
+[FtdiPort232.NTamd64.HW]
+AddReg=FtdiPort232.NT.HW.AddReg
+
+[FtdiPort232.NT.Services]
+AddService = FTSER2K, 0x00000002, FtdiPort.NT.AddService
+AddService = Serenum,,SerEnum_AddService
+DelService = FTSERIAL
+
+[FtdiPort232.NTamd64.Services]
+AddService = FTSER2K, 0x00000002, FtdiPort.NT.AddService
+AddService = Serenum,,SerEnum_AddService
+DelService = FTSERIAL
+
+[FtdiPort232.NT.HW.AddReg]
+HKR,,"UpperFilters",0x00010000,"serenum"
+HKR,,"ConfigData",1,11,00,3F,3F,10,27,00,00,88,13,00,00,C4,09,00,00,E2,04,00,00,71,02,00,00,38,41,00,00,9C,80,00,00,4E,C0,00,00,34,00,00,00,1A,00,00,00,0D,00,00,00,06,40,00,00,03,80,00,00,00,00,00,00,D0,80,00,00
+HKR,,"MinReadTimeout",0x00010001,0
+HKR,,"MinWriteTimeout",0x00010001,0
+HKR,,"LatencyTimer",0x00010001,16
+
+
+; ------------------------------------------------------------------------------
+; 
+; Multiple interface device section - includes FT2232C/D/L, FT2232H and FT4232H
+; 
+; ------------------------------------------------------------------------------
+
+[FtdiPort2232.NT]
+CopyFiles=FtdiPort.NT.Copy,FtdiPort.NT.CopyUI
+AddReg=FtdiPort.NT.AddReg
+
+[FtdiPort2232.NTamd64]
+CopyFiles=FtdiPort.NT.Copy,FtdiPort.NT.CopyUI
+AddReg=FtdiPort.NT.AddReg
+
+[FtdiPort2232.NT.HW]
+AddReg=FtdiPort232.NT.HW.AddReg
+
+[FtdiPort2232.NTamd64.HW]
+AddReg=FtdiPort232.NT.HW.AddReg
+
+[FtdiPort2232.NT.CoInstallers]
+AddReg=FtdiPort2232.NT.CoInstallers.AddReg
+CopyFiles=FtdiPort2232.NT.CopyCoInst
+
+[FtdiPort2232.NTamd64.CoInstallers]
+AddReg=FtdiPort2232.NT.CoInstallers.AddReg
+CopyFiles=FtdiPort2232.NT.CopyCoInst
+
+[FtdiPort2232.NT.Services]
+AddService = FTSER2K, 0x00000002, FtdiPort.NT.AddService
+AddService = Serenum,,SerEnum_AddService
+DelService = FTSERIAL
+
+[FtdiPort2232.NTamd64.Services]
+AddService = FTSER2K, 0x00000002, FtdiPort.NT.AddService
+AddService = Serenum,,SerEnum_AddService
+DelService = FTSERIAL
+
+[FtdiPort2232.NT.CoInstallers.AddReg]
+HKR,,CoInstallers32,0x00010000,"ftcserco.Dll,FTCSERCoInstaller"
+
+[FtdiPort2232.NT.CopyCoInst]
+ftcserco.dll
+
+;---------------------------------------------------------------;
+
+[Strings]
+FTDI="FTDI"
+DESC="CDM Driver Package"
+DriversDisk="FTDI USB Drivers Disk"
+PortsClassName = "Ports (COM & LPT)"
+VID_0403&PID_6001.DeviceDesc="USB Serial Port"
+VID_0403&PID_6010.DeviceDesc="USB Serial Port"
+VID_0403&PID_6011.DeviceDesc="USB Serial Port"
+SvcDesc="USB Serial Port Driver"
+SerEnum.SvcDesc="Serenum Filter Driver"
+
+
